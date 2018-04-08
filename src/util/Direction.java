@@ -1,5 +1,5 @@
 package util;
 
 public enum  Direction {
-    L, U, R, D, STOP
+    L, U, R, D
 }
