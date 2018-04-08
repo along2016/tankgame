@@ -131,16 +131,16 @@ public class Tank{
      * 坦克移动
      */
     public void move(){
-        if(b_U){
+        if(b_U && dir == Direction.U){
             //向上移动
             y -= speed;
-        } else if(b_D){
+        } else if(b_D && dir == Direction.D){
             //向下移动
             y += speed;
-        } else if(b_L){
+        } else if(b_L && dir == Direction.L){
             //向左移动
             x -= speed;
-        } else if(b_R){
+        } else if(b_R && dir == Direction.R){
             //向右移动
             x += speed;
         }
