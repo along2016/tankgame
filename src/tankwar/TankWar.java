@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class TankClient extends JFrame implements KeyListener {
+public class TankWar extends JFrame implements KeyListener {
     public static void main(String[] args) {
-        new TankClient().launchFrame();
+        new TankWar().launchFrame();
     }
 
     private static final int AREA_WIDTH = 600;
@@ -24,7 +24,7 @@ public class TankClient extends JFrame implements KeyListener {
         setLocation(300, 400);
         setSize(AREA_WIDTH, AREA_HEIGHT);
         setBackground(Color.WHITE);
-        background = new ImageIcon(TankClient.class.getResource("/pic/whiteback.jpg"));
+        background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
         gamePanel = new JPanel(null);
         panel = new MyPanel();
         panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));

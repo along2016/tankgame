@@ -153,7 +153,7 @@ public class Tank{
             dir = Direction.U;
         }else if(b_R && !b_U && !b_D && !b_L){
             dir = Direction.R;
-        }else if(!b_R && !b_U && b_D && !b_L){
+        }else if(b_D && !b_R && !b_U && !b_L){
             dir = Direction.D;
         }
     }
