@@ -1,3 +1,6 @@
+package tankwar;
+
+import util.Direction;
 import util.TankLevel;
 
 import javax.swing.*;

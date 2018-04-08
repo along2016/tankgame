@@ -1,3 +1,7 @@
+package tankwar;
+
+import util.Direction;
+
 import java.awt.*;
 
 public class Missile implements Runnable{
