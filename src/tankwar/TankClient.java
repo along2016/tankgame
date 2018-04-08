@@ -11,6 +11,8 @@ public class TankClient extends JFrame implements KeyListener {
 
     private static final int AREA_WIDTH = 600;
     private static final int AREA_HEIGHT = 400;
+    //战场背景
+    private ImageIcon background;
 
     private Tank tank = new Tank(50, 50, true, 1);
 
@@ -22,6 +24,7 @@ public class TankClient extends JFrame implements KeyListener {
         setLocation(300, 400);
         setSize(AREA_WIDTH, AREA_HEIGHT);
         setBackground(Color.WHITE);
+        background = new ImageIcon(TankClient.class.getResource("/pic/whiteback.jpg"));
         gamePanel = new JPanel(null);
         panel = new MyPanel();
         panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
@@ -79,6 +82,7 @@ public class TankClient extends JFrame implements KeyListener {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
+            g.drawImage(background.getImage(), 0, 0 ,null);
             tank.draw(g);
             if(tank.getMissile() != null){
                 tank.getMissile().draw(g);
