@@ -11,7 +11,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TankWar extends JFrame implements KeyListener {
+public class TankWar extends JFrame {
     public static void main(String[] args) {
         new TankWar().launchFrame();
     }
@@ -32,7 +32,7 @@ public class TankWar extends JFrame implements KeyListener {
     private List<Iron> irons = new ArrayList<>();
     //我方出生地
     private SelfBorn selfBorn;
-    //地方出生地
+    //敌方出生地
     private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();
 
     private JPanel gamePanel;
