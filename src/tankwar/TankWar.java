@@ -15,8 +15,8 @@ public class TankWar extends JFrame implements KeyListener {
         new TankWar().launchFrame();
     }
 
-    private static final int AREA_WIDTH = 600;
-    private static final int AREA_HEIGHT = 400;
+    private static final int AREA_WIDTH = 800;
+    private static final int AREA_HEIGHT = 800;
     //战场背景
     private ImageIcon background;
 

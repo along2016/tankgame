@@ -122,7 +122,7 @@ public class Tank{
      * 设定坦克无法移动的情况
      * @return
      */
-    public boolean noMove(){
+    public boolean noMove(int willX, int willY){
 
         return true;
     }
