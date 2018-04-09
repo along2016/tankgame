@@ -1,5 +1,6 @@
 package tankwar;
 
+import mech.Mech;
 import util.Direction;
 
 import java.awt.*;
@@ -13,15 +14,15 @@ public class Missile implements Runnable{
     private int speed = 20;
     //子弹的宽度和高度
     public int SIZE;
-    //子弹所属坦克
-    private Tank tank;
+    //子弹所属机甲
+    private Mech mech;
 
-    public Missile(int x, int y, Tank tank) {
+    public Missile(int x, int y, Mech mech) {
         this.x = x;
         this.y = y;
-        this.tank = tank;
-        this.dir = tank.getDir();
-        SIZE = tank.getPower();
+        this.mech = mech;
+        this.dir = mech.getDir();
+        SIZE = mech.getPower();
     }
 
     public void draw(Graphics g){

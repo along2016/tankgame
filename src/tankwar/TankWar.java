@@ -1,6 +1,7 @@
 package tankwar;
 
 import barrier.*;
+import util.Direction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +21,7 @@ public class TankWar extends JFrame implements KeyListener {
     //战场背景
     private ImageIcon background;
 
-    private Tank tank = new Tank(50, 50, true, 1);
+    private Tank tank = new Tank(50, 50, 5,  Direction.D, null, true, 1);
     //普通墙
     private List<Wall> walls = new ArrayList<>();
     //金墙
@@ -104,7 +105,7 @@ public class TankWar extends JFrame implements KeyListener {
             for(int i = 0; i < walls.size(); i++){
                 walls.get(i).draw(g);
             }
-            tank.draw(g);
+            tank.drawTank(g);
             if(tank.getMissile() != null){
                 tank.getMissile().draw(g);
             }
