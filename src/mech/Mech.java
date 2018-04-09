@@ -75,6 +75,25 @@ public abstract class Mech {
         }
     }
 
+    /**
+     * 机甲自动移动
+     */
+    public void autoMove(){
+        if(dir == Direction.U){
+            //向上移动
+            y -= speed;
+        } else if(dir == Direction.D){
+            //向下移动
+            y += speed;
+        } else if(dir == Direction.L){
+            //向左移动
+            x -= speed;
+        } else if(dir == Direction.R){
+            //向右移动
+            x += speed;
+        }
+    }
+
     public void fire(){
         int missileX = x + 25 - power/2;
         int missileY = y + 25 - power/2;

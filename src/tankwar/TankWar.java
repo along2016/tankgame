@@ -23,7 +23,7 @@ public class TankWar extends JFrame implements KeyListener {
 
     private Tank tank = new Tank(50, 50, 5,  Direction.D, null, true, 1);
 
-    private Battleplane myPlane = new Battleplane(100, 100, 10, Direction.D, null);
+    private Battleplane myPlane = new Battleplane(100, 100, 1, Direction.D, null);
     //普通墙
     private List<Wall> walls = new ArrayList<>();
     //金墙
@@ -72,12 +72,14 @@ public class TankWar extends JFrame implements KeyListener {
             tank.fire();
         } else {
             tank.keyPress(e);
+            myPlane.keyPress(e);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         tank.keyReleased(e);
+        myPlane.keyReleased(e);
     }
 
     private class MyRepaint implements Runnable{
@@ -87,6 +89,7 @@ public class TankWar extends JFrame implements KeyListener {
             while (true){
                 //每30ms重画一次
                 panel.repaint();
+                myPlane.autoMove();
                 tank.move();
                 try {
                     Thread.sleep(30);
