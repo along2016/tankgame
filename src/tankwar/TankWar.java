@@ -22,6 +22,8 @@ public class TankWar extends JFrame implements KeyListener {
     private ImageIcon background;
 
     private Tank tank = new Tank(50, 50, 5,  Direction.D, null, true, 1);
+
+    private Battleplane myPlane = new Battleplane(100, 100, 10, Direction.D, null);
     //普通墙
     private List<Wall> walls = new ArrayList<>();
     //金墙
@@ -106,6 +108,7 @@ public class TankWar extends JFrame implements KeyListener {
                 walls.get(i).draw(g);
             }
             tank.drawTank(g);
+            myPlane.drawPlane(g);
             if(tank.getMissile() != null){
                 tank.getMissile().draw(g);
             }

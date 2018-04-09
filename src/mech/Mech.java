@@ -32,6 +32,13 @@ public abstract class Mech {
         this.missile = missile;
     }
 
+    /**
+     * 绘制机甲
+     */
+    public void draw(ImageIcon mech, Graphics g){
+        g.drawImage(mech.getImage(), x, y, null);
+    }
+
     //按照上下左右四个方向绘制机甲
     public void draw(ImageIcon mech_L, ImageIcon mech_U, ImageIcon mech_R, ImageIcon mech_D, Graphics g){
         switch (dir) {
