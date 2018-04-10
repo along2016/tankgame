@@ -102,42 +102,64 @@ public abstract class Mech {
         new Thread(missile).start();
     }
 
-    //响应监听事件的方法
-    public void keyPress(KeyEvent event){
+    /**
+     * 响应键盘按键监听事件的方法
+     * （上下左右键）
+     * @param event
+     * @param keyCode_up 向上方向键的键值
+     * @param keyCode_down 向下方向键的键值
+     * @param keyCode_left 向左方向键的键值
+     * @param keyCode_right 向右方向键的键值
+     * @param pressed  true:按键按下  false:按键释放
+     */
+    public void keyListener(KeyEvent event, int keyCode_up, int keyCode_down,
+                            int keyCode_left, int keyCode_right, boolean pressed){
         int keyCode = event.getKeyCode();
-        switch (keyCode){
-            case KeyEvent.VK_UP:
-                b_U = true;
-                break;
-            case KeyEvent.VK_DOWN:
-                b_D = true;
-                break;
-            case KeyEvent.VK_LEFT:
-                b_L = true;
-                break;
-            case KeyEvent.VK_RIGHT:
-                b_R = true;
-                break;
+        if(keyCode == keyCode_up){
+            b_U = pressed;
+        } else if(keyCode == keyCode_down){
+            b_D = pressed;
+        } else if(keyCode == keyCode_left){
+            b_L = pressed;
+        } else if(keyCode == keyCode_right){
+            b_R = pressed;
         }
+    }
+
+    public void keyPress(KeyEvent event, int keyCode_up, int keyCode_down,
+                         int keyCode_left, int keyCode_right){
+        keyListener(event, keyCode_up, keyCode_down, keyCode_left, keyCode_right, true);
         moveDirection();
     }
 
-    public void keyReleased(KeyEvent event){
+    public void keyReleased(KeyEvent event, int keyCode_up, int keyCode_down,
+                            int keyCode_left, int keyCode_right){
+        keyListener(event, keyCode_up, keyCode_down, keyCode_left, keyCode_right, false);
+    }
+
+    /**
+     * 响应左、右方向键键盘按键监听事件的方法
+     * （W，A，S，D键）
+     * @param keyCode_left 左键对应的按键码
+     * @param keyCode_right 右键对应的按键码
+     * @param pressed  true:按键按下  false:按键释放
+     */
+    public void keyListener_LR(KeyEvent event, int keyCode_left, int keyCode_right, boolean pressed){
         int keyCode = event.getKeyCode();
-        switch (keyCode){
-            case KeyEvent.VK_LEFT:
-                b_L = false;
-                break;
-            case KeyEvent.VK_UP:
-                b_U = false;
-                break;
-            case KeyEvent.VK_RIGHT:
-                b_R = false;
-                break;
-            case KeyEvent.VK_DOWN:
-                b_D = false;
-                break;
+        if(keyCode == keyCode_left){
+            b_L = pressed;
+        } else if(keyCode == keyCode_right){
+            b_R = pressed;
         }
+    }
+
+    public void keyPress_LR(KeyEvent event, int keyCode_left, int keyCode_right){
+        keyListener_LR(event, keyCode_left, keyCode_right, true);
+        moveDirection_LR();
+    }
+
+    public void keyReleased_LR(KeyEvent event, int keyCode_left, int keyCode_right){
+        keyListener_LR(event, keyCode_left, keyCode_right, false);
     }
 
     private void moveDirection(){
@@ -149,6 +171,17 @@ public abstract class Mech {
             dir = Direction.R;
         }else if(b_D && !b_R && !b_U && !b_L){
             dir = Direction.D;
+        }
+    }
+
+    /**
+     * 机甲只按照左右方向移动
+     */
+    private void moveDirection_LR(){
+        if(b_L && !b_D){
+            dir = Direction.L;
+        }else if(b_R && !b_L){
+            dir = Direction.R;
         }
     }
 

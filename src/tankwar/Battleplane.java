@@ -21,4 +21,5 @@ public class Battleplane extends Mech {
     public void drawPlane(Graphics g){
         draw(battleplane, g);
     }
+
 }

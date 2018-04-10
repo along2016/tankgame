@@ -60,6 +60,7 @@ public class TankWar extends JFrame {
         setResizable(false);
         setVisible(true);
         addKeyListener(new TankListener(tank));
+        addKeyListener(new PlaneListener(myPlane));
         new Thread(new MyRepaint()).start();
     }
 

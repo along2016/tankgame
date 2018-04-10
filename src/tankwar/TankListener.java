@@ -20,12 +20,12 @@ public class TankListener implements KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             tank.fire();
         } else {
-            tank.keyPress(e);
+            tank.keyPress(e, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        tank.keyReleased(e);
+        tank.keyReleased(e, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT);
     }
 }
