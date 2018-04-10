@@ -59,31 +59,11 @@ public class TankWar extends JFrame {
         });
         setResizable(false);
         setVisible(true);
-        addKeyListener(this);
+        addKeyListener(new TankListener(tank));
         new Thread(new MyRepaint()).start();
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            tank.fire();
-        } else {
-            tank.keyPress(e);
-            myPlane.keyPress(e);
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        tank.keyReleased(e);
-        myPlane.keyReleased(e);
-    }
-
     private class MyRepaint implements Runnable{
-
         @Override
         public void run() {
             while (true){
