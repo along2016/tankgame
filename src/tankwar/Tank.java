@@ -94,10 +94,19 @@ public class Tank extends Mech{
                 }
                 break;
         }
-        tank_L = new ImageIcon(Tank.class.getResource("/img/TANK1_self_left_1.png"));
-        tank_U = new ImageIcon(Tank.class.getResource("/img/TANK1_self_up_1.png"));
-        tank_R = new ImageIcon(Tank.class.getResource("/img/TANK1_self_right_1.png"));
-        tank_D = new ImageIcon(Tank.class.getResource("/img/TANK1_self_down_1.png"));
+        int iLevel = level.getLevel();
+        if(self){
+            tank_L = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_self_left_" + iLevel + ".png"));
+            tank_U = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_self_up_" + iLevel + ".png"));
+            tank_R = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_self_right_" + iLevel + ".png"));
+            tank_D = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_self_down_" + iLevel + ".png"));
+        } else {
+            tank_L = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_left_" + iLevel + ".png"));
+            tank_U = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_up_" + iLevel + ".png"));
+            tank_R = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_right_" + iLevel + ".png"));
+            tank_D = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_down_" + iLevel + ".png"));
+        }
+
     }
 
     /**

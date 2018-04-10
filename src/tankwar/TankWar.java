@@ -19,22 +19,22 @@ public class TankWar extends JFrame {
 
     private static final int AREA_WIDTH = 800;
     private static final int AREA_HEIGHT = 800;
-    private ImageIcon background;//战场背景
-    private final String map;//战场地图
-    private int maxTank;//敌方最大坦克数
-    private int style;//坦克型号
-    private Tank myTank;//我方坦克
-    private Tank enemyTank;//敌方坦克
+    private ImageIcon background;                                       //战场背景
+    private final String map;                                           //战场地图
+    private int maxTank;                                                //敌方最大坦克数
+    private int style;                                                  //坦克型号
+    private Tank myTank;                                                //我方坦克
+    private Tank enemyTank;                                             //敌方坦克
     private Random r = new Random();
     private List<Tank> allTanks = new ArrayList<>();
 
 //    private Battleplane myPlane = new Battleplane(100, 100, 1, Direction.D, null);
 
-    private List<Wall> walls = new ArrayList<>();//普通墙
-    private List<Gold> golds = new ArrayList<>();//金墙
-    private List<Iron> irons = new ArrayList<>();//铁墙
-    private SelfBorn selfBorn;//我方出生地
-    private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();//敌方出生地
+    private List<Wall> walls = new ArrayList<>();                       //普通墙
+    private List<Gold> golds = new ArrayList<>();                       //金墙
+    private List<Iron> irons = new ArrayList<>();                       //铁墙
+    private SelfBorn selfBorn;                                          //我方出生地
+    private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();       //敌方出生地
 
     private JPanel gamePanel;
     private MyPanel panel;
@@ -115,6 +115,14 @@ public class TankWar extends JFrame {
             //添加围墙
             for(int i = 0; i < walls.size(); i++){
                 walls.get(i).draw(g);
+            }
+            //添加金属墙
+            for(int i = 0; i < golds.size(); i++){
+                golds.get(i).draw(g);
+            }
+            //添加铁墙
+            for(int i = 0; i < irons.size(); i++){
+                irons.get(i).draw(g);
             }
 
             //绘制我方坦克出生地
