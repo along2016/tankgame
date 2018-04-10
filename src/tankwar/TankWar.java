@@ -100,6 +100,9 @@ public class TankWar extends JFrame {
     public void initBattlefield(){
 //        myPlane.autoMove();
         myTank.move();
+        for(int i = 1; i < allTanks.size(); i++){
+            allTanks.get(i).autoMove();
+        }
     }
 
     private class MyPanel extends JPanel{
