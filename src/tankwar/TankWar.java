@@ -13,17 +13,22 @@ import java.util.List;
 
 public class TankWar extends JFrame {
     public static void main(String[] args) {
-        new TankWar().launchFrame();
+        new TankWar("map/ermeng.map", 5, 1);
     }
 
     private static final int AREA_WIDTH = 800;
     private static final int AREA_HEIGHT = 800;
     //战场背景
     private ImageIcon background;
+    //战场地图
+    private final String map;
+    //最大坦克数
+    private int maxTank;
+    //坦克型号
+    private int style;
+    private Tank myTank;
 
-    private Tank tank = new Tank(50, 50, 5,  Direction.D, null, true, 1);
-
-    private Battleplane myPlane = new Battleplane(100, 100, 1, Direction.D, null);
+//    private Battleplane myPlane = new Battleplane(100, 100, 1, Direction.D, null);
     //普通墙
     private List<Wall> walls = new ArrayList<>();
     //金墙
@@ -38,13 +43,24 @@ public class TankWar extends JFrame {
     private JPanel gamePanel;
     private MyPanel panel;
 
-    public void launchFrame(){
-        initMap(new File("map/ermeng.map"));
+    public TankWar(String map, int maxTank, int style){
+        this.map = map;
+        this.maxTank = maxTank;
+        this.style = style;
+        init();
+    }
+
+    //初始化战场
+    public void init(){
         setTitle("坦克大战");
         setLocation(300, 400);
         setSize(AREA_WIDTH, AREA_HEIGHT);
-        setBackground(Color.WHITE);
         background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
+        initMap(new File(map));
+
+        //加入我方坦克
+        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null, true, style);
+
         gamePanel = new JPanel(null);
         panel = new MyPanel();
         panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
@@ -57,21 +73,21 @@ public class TankWar extends JFrame {
                 System.exit(0);
             }
         });
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
-        addKeyListener(new TankListener(tank));
-        addKeyListener(new PlaneListener(myPlane));
-        new Thread(new MyRepaint()).start();
+        addKeyListener(new TankListener(myTank));
+//        addKeyListener(new PlaneListener(myPlane));
+
+        new Thread(new WarRepaint()).start();
     }
 
-    private class MyRepaint implements Runnable{
+    private class WarRepaint implements Runnable{
         @Override
         public void run() {
             while (true){
                 //每30ms重画一次
                 panel.repaint();
-                myPlane.autoMove();
-                tank.move();
+                initBattlefield();
                 try {
                     Thread.sleep(30);
                 } catch (InterruptedException e) {
@@ -79,6 +95,13 @@ public class TankWar extends JFrame {
                 }
             }
         }
+
+    }
+
+    //将战斗单位依次加入战场
+    public void initBattlefield(){
+//        myPlane.autoMove();
+        myTank.move();
     }
 
     private class MyPanel extends JPanel{
@@ -91,10 +114,12 @@ public class TankWar extends JFrame {
             for(int i = 0; i < walls.size(); i++){
                 walls.get(i).draw(g);
             }
-            tank.drawTank(g);
-            myPlane.drawPlane(g);
-            if(tank.getMissile() != null){
-                tank.getMissile().draw(g);
+
+            selfBorn.draw(g);
+            myTank.drawTank(g);
+//            myPlane.drawPlane(g);
+            if(myTank.getMissile() != null){
+                myTank.getMissile().draw(g);
             }
         }
     }

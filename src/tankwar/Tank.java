@@ -21,6 +21,8 @@ public class Tank extends Mech{
     private int style;
     //坦克等级
     private TankLevel level = TankLevel.PRIMARY;
+    //坦克速度
+    private static final int speed = 5;
 
     //定义上下左右四个方向上的坦克图片
     private ImageIcon tank_U;
@@ -28,7 +30,7 @@ public class Tank extends Mech{
     private ImageIcon tank_L;
     private ImageIcon tank_R;
 
-    public Tank(int x, int y, int speed, Direction dir, Missile missile, boolean self, int style) {
+    public Tank(int x, int y, Direction dir, Missile missile, boolean self, int style) {
         super(x, y, speed, dir, missile);
         this.self = self;
         this.style = style;
