@@ -1,34 +1,38 @@
 package tankwar;
 
+import barrier.Gold;
+import barrier.Iron;
+import barrier.Wall;
 import mech.Mech;
 import util.Direction;
 import util.TankLevel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.Random;
+import java.util.*;
+import java.util.List;
 
 public class Tank extends Mech{
 
-    //坦克的单位血量
-    private int hp = 50;
-    //坦克的最大血量
-    private int hpMax = 50;
-    //是否是我方坦克
-    private boolean self;
-    //坦克型号
-    private int style;
-    //坦克等级
-    private TankLevel level = TankLevel.PRIMARY;
-    //坦克速度
-    private static final int speed = 5;
+    private int hp = 50;                                //坦克的单位血量
+    private int hpMax = 50;                             //坦克的最大血量
+    private boolean self;                               //是否是我方坦克
+    private int style;                                  //坦克型号
+    private TankLevel level = TankLevel.PRIMARY;        //坦克等级
+    private static final int speed = 5;                 //坦克速度
 
     //定义上下左右四个方向上的坦克图片
     private ImageIcon tank_U;
     private ImageIcon tank_D;
     private ImageIcon tank_L;
     private ImageIcon tank_R;
+
+    //坦克所在的外部环境
+    private List<Tank> allTanks;                        //战场中的其他坦克
+    private List<Wall> walls;                           //战场中的普通墙
+    private List<Gold> golds;                           //战场中的金墙
+    private List<Iron> irons;                           //战场中的铁墙
+
 
     public Tank(int x, int y, Direction dir, Missile missile, boolean self, int style) {
         super(x, y, speed, dir, missile);
@@ -41,15 +45,6 @@ public class Tank extends Mech{
             level = tankLevels[new Random().nextInt(tankLevels.length)];
         }
         initTank();
-    }
-
-    /**
-     * 设定坦克无法移动的情况
-     * @return
-     */
-    public boolean noMove(int willX, int willY){
-
-        return true;
     }
 
     public void initTank(){

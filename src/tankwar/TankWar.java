@@ -17,6 +17,7 @@ public class TankWar extends JFrame {
         new TankWar("map/ermeng.map", 5, 1);
     }
 
+    public static final int SIZE = 50;                                  //坦克图片大小
     private static final int AREA_WIDTH = 800;
     private static final int AREA_HEIGHT = 800;
     private ImageIcon background;                                       //战场背景
@@ -195,5 +196,45 @@ public class TankWar extends JFrame {
                 return;
             }
         }
+    }
+
+    //列出坦克不能移动的情形
+    private boolean tankNoMove(int willX,int willY){
+        //1、当坦克碰到其他坦克时不能移动
+        for(int i = 0; i < allTanks.size(); i++){
+            Tank tank = allTanks.get(i);
+            if(willX > tank.getX() && willX < tank.getX() + SIZE
+                    && willY > tank.getY() &&  willY < tank.getY() + SIZE){
+                return false;
+            }
+        }
+
+        //2、当坦克碰到普通墙时
+        for(int i = 0; i < walls.size(); i++){
+            Wall wall = walls.get(i);
+            if(willX > wall.getX() && willX < wall.getX() + SIZE
+                    && willY > wall.getY() &&  willY < wall.getY() + SIZE){
+                return false;
+            }
+        }
+
+        //3、当坦克碰到金墙时
+        for(int i = 0; i < golds.size(); i++){
+            Gold gold = golds.get(i);
+            if(willX > gold.getX() && willX < gold.getX() + SIZE
+                    && willY > gold.getY() &&  willY < gold.getY() + SIZE){
+                return false;
+            }
+        }
+
+        //4、当坦克碰到铁墙时
+        for(int i = 0; i < irons.size(); i++){
+            Iron iron = irons.get(i);
+            if(willX > iron.getX() && willX < iron.getX() + SIZE
+                    && willY > iron.getY() &&  willY < iron.getY() + SIZE){
+                return false;
+            }
+        }
+        return true;
     }
 }
