@@ -1,11 +1,14 @@
 package mech;
 
 import tankwar.Missile;
+import tankwar.Tank;
+import tankwar.TankWar;
 import util.Direction;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.Random;
 
 /**
  * 机甲类
@@ -180,6 +183,40 @@ public abstract class Mech {
             dir = Direction.L;
         }else if(b_R && !b_L){
             dir = Direction.R;
+        }
+    }
+
+    /**
+     * 设置敌方坦克的初始方向
+     */
+    public void defaultDirection(){
+        if(getX() <= 0){
+            b_L = false;
+            b_U = false;
+            b_R = true;
+            b_D = false;
+            setDir(Direction.R);
+        }
+        if(getY() <= 0){
+            b_L = false;
+            b_U = false;
+            b_R = false;
+            b_D = true;
+            setDir(Direction.D);
+        }
+        if(getX() + Tank.SIZE >= TankWar.AREA_WIDTH){
+            b_L = true;
+            b_U = false;
+            b_R = false;
+            b_D = false;
+            setDir(Direction.L);
+        }
+        if(getY() + Tank.SIZE >= TankWar.AREA_HEIGHT){
+            b_L = false;
+            b_U = true;
+            b_R = false;
+            b_D = false;
+            setDir(Direction.U);
         }
     }
 

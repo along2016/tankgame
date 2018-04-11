@@ -51,6 +51,7 @@ public class Tank extends Mech{
         } else {
             TankLevel tankLevels[] = TankLevel.values();
             level = tankLevels[new Random().nextInt(tankLevels.length)];
+            defaultDirection();
         }
         initTank();
     }
