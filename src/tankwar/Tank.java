@@ -46,9 +46,7 @@ public class Tank extends Mech{
         this.walls = walls;
         this.golds = golds;
         this.irons = irons;
-        if(self){
-            dir = Direction.U;
-        } else {
+        if(!self){
             TankLevel tankLevels[] = TankLevel.values();
             level = tankLevels[new Random().nextInt(tankLevels.length)];
             defaultDirection();
