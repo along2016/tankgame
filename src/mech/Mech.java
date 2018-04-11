@@ -22,7 +22,7 @@ public abstract class Mech {
     //子弹大小
     private int power;
     //机甲方向键的按键情况
-    private boolean b_L, b_U, b_R, b_D;
+    protected boolean b_L, b_U, b_R, b_D;
 
     public Mech(int x, int y, int speed, Direction dir, Missile missile) {
         this.speed = speed;
@@ -56,23 +56,21 @@ public abstract class Mech {
         }
     }
 
-    /**
-     * 机甲移动
-     */
-    public void move(){
-        if(b_U && dir == Direction.U){
-            //向上移动
-            y -= speed;
-        } else if(b_D && dir == Direction.D){
-            //向下移动
-            y += speed;
-        } else if(b_L && dir == Direction.L){
-            //向左移动
-            x -= speed;
-        } else if(b_R && dir == Direction.R){
-            //向右移动
-            x += speed;
-        }
+    //向左移动
+    public void moveLeft(){
+        x -= speed;
+    }
+    //向右移动
+    public void moveRight(){
+        x += speed;
+    }
+    //向上移动
+    public void moveUp(){
+        y -= speed;
+    }
+    //向下移动
+    public void moveDown(){
+        y += speed;
     }
 
     /**

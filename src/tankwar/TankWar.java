@@ -17,9 +17,8 @@ public class TankWar extends JFrame {
         new TankWar("map/ermeng.map", 5, 1);
     }
 
-    public static final int SIZE = 50;                                  //坦克图片大小
-    private static final int AREA_WIDTH = 800;
-    private static final int AREA_HEIGHT = 800;
+    public static final int AREA_WIDTH = 800;
+    public static final int AREA_HEIGHT = 800;
     private ImageIcon background;                                       //战场背景
     private final String map;                                           //战场地图
     private int maxTank;                                                //敌方最大坦克数
@@ -56,7 +55,8 @@ public class TankWar extends JFrame {
         initMap(new File(map));
 
         //加入我方坦克
-        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null, true, style);
+        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null,
+                allTanks, walls, golds, irons,true, style);
         allTanks.add(myTank);
         addTank();
 
@@ -189,52 +189,12 @@ public class TankWar extends JFrame {
             Direction directions[] = Direction.values();
             enemyTank = new Tank(randomEnemyBorn.getX(), randomEnemyBorn.getY(),
                     directions[r.nextInt(directions.length)], null,
-                    false, r.nextInt(3) + 1);
+                    allTanks, walls, golds, irons, false, r.nextInt(3) + 1);
             allTanks.add(enemyTank);
             maxTank--;
             if(maxTank <= 0){
                 return;
             }
         }
-    }
-
-    //列出坦克不能移动的情形
-    private boolean tankNoMove(int willX,int willY){
-        //1、当坦克碰到其他坦克时不能移动
-        for(int i = 0; i < allTanks.size(); i++){
-            Tank tank = allTanks.get(i);
-            if(willX > tank.getX() && willX < tank.getX() + SIZE
-                    && willY > tank.getY() &&  willY < tank.getY() + SIZE){
-                return false;
-            }
-        }
-
-        //2、当坦克碰到普通墙时
-        for(int i = 0; i < walls.size(); i++){
-            Wall wall = walls.get(i);
-            if(willX > wall.getX() && willX < wall.getX() + SIZE
-                    && willY > wall.getY() &&  willY < wall.getY() + SIZE){
-                return false;
-            }
-        }
-
-        //3、当坦克碰到金墙时
-        for(int i = 0; i < golds.size(); i++){
-            Gold gold = golds.get(i);
-            if(willX > gold.getX() && willX < gold.getX() + SIZE
-                    && willY > gold.getY() &&  willY < gold.getY() + SIZE){
-                return false;
-            }
-        }
-
-        //4、当坦克碰到铁墙时
-        for(int i = 0; i < irons.size(); i++){
-            Iron iron = irons.get(i);
-            if(willX > iron.getX() && willX < iron.getX() + SIZE
-                    && willY > iron.getY() &&  willY < iron.getY() + SIZE){
-                return false;
-            }
-        }
-        return true;
     }
 }
