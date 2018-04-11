@@ -50,7 +50,6 @@ public class TankWar extends JFrame {
     public void init(){
         setTitle("坦克大战");
         setLocation(300, 400);
-        setSize(AREA_WIDTH, AREA_HEIGHT);
         background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
         initMap(new File(map));
 
@@ -66,14 +65,16 @@ public class TankWar extends JFrame {
         panel.setSize(AREA_WIDTH, AREA_HEIGHT);
         gamePanel.add(panel);
         add(gamePanel);
+        setSize(AREA_WIDTH, AREA_HEIGHT);
+        setResizable(true);
+        setVisible(true);
+
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
-        setResizable(true);
-        setVisible(true);
         addKeyListener(new TankListener(myTank));
 //        addKeyListener(new PlaneListener(myPlane));
 
