@@ -17,8 +17,8 @@ public class TankWar extends JFrame {
         new TankWar("map/ermeng.map", 5, 1);
     }
 
-    public static final int AREA_WIDTH = 820;
-    public static final int AREA_HEIGHT = 840;
+    public static final int AREA_WIDTH = 810;
+    public static final int AREA_HEIGHT = 830;
     private ImageIcon background;                                       //战场背景
     private final String map;                                           //战场地图
     private int maxTank;                                                //敌方最大坦克数
@@ -65,7 +65,7 @@ public class TankWar extends JFrame {
 //        gamePanel.add(panel);
         add(panel);
         setSize(AREA_WIDTH, AREA_HEIGHT);
-        setResizable(true);
+        setResizable(false);
         setVisible(true);
 
         addWindowListener(new WindowAdapter() {
