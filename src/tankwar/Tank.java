@@ -119,7 +119,7 @@ public class Tank extends Mech{
                 && noMove(getX() + SIZE + speed, getY())
                 && noMove(getX() + SIZE + speed, getY() + SIZE - 1)){
             moveRight();
-        } else if(b_D && getY() < TankWar.AREA_HEIGHT - 50
+        } else if(b_D && getY() < TankWar.AREA_HEIGHT - SIZE -30
                 && noMove(getX(), getY() + SIZE + speed)
                 && noMove(getX() + SIZE - 1, getY() + SIZE + speed)){
             moveDown();

@@ -58,12 +58,12 @@ public class TankWar extends JFrame {
         allTanks.add(myTank);
         addTank();
 
-//        gamePanel = new JPanel(null);
+        gamePanel = new JPanel(null);
         panel = new MyPanel();
         panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
         panel.setSize(AREA_WIDTH, AREA_HEIGHT);
-//        gamePanel.add(panel);
-        add(panel);
+        gamePanel.add(panel);
+        add(gamePanel);
         setSize(AREA_WIDTH, AREA_HEIGHT);
         setResizable(false);
         setVisible(true);
