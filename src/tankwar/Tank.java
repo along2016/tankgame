@@ -112,6 +112,25 @@ public class Tank extends Mech{
     }
 
     public void move(){
+        if(b_U && getDir() == Direction.U && getY() > 0 && noMove(getX(), getY() - speed)
+                && noMove(getX() + SIZE - 1, getY() - speed)){
+            moveUp();
+        } else if(b_R && getDir() == Direction.R && getX() + SIZE < TankWar.AREA_WIDTH
+                && noMove(getX() + SIZE + speed, getY())
+                && noMove(getX() + SIZE + speed, getY() + SIZE - 1)){
+            moveRight();
+        } else if(b_D && getDir() == Direction.D && getY() < TankWar.AREA_HEIGHT - SIZE -30
+                && noMove(getX(), getY() + SIZE + speed)
+                && noMove(getX() + SIZE - 1, getY() + SIZE + speed)){
+            moveDown();
+        } else if(b_L && getDir() == Direction.L && getX() > 0
+                && noMove(getX() - speed, getY())
+                && noMove(getX() - speed, getY() + SIZE - 1)){
+            moveLeft();
+        }
+    }
+
+    public void autoMove(){
         if(b_U && getY() > 0 && noMove(getX(), getY() - speed)
                 && noMove(getX() + SIZE - 1, getY() - speed)){
             moveUp();

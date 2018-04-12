@@ -101,7 +101,7 @@ public class TankWar extends JFrame {
 //        myPlane.autoMove();
         myTank.move();
         for(int i = 1; i < allTanks.size(); i++){
-            allTanks.get(i).move();
+            allTanks.get(i).autoMove();
         }
     }
 
