@@ -17,8 +17,8 @@ public class TankWar extends JFrame {
         new TankWar("map/ermeng.map", 5, 1);
     }
 
-    public static final int AREA_WIDTH = 800;
-    public static final int AREA_HEIGHT = 800;
+    public static final int AREA_WIDTH = 820;
+    public static final int AREA_HEIGHT = 840;
     private ImageIcon background;                                       //战场背景
     private final String map;                                           //战场地图
     private int maxTank;                                                //敌方最大坦克数
@@ -49,7 +49,6 @@ public class TankWar extends JFrame {
     //初始化战场
     public void init(){
         setTitle("坦克大战");
-        setLocation(300, 400);
         background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
         initMap(new File(map));
 
@@ -59,12 +58,12 @@ public class TankWar extends JFrame {
         allTanks.add(myTank);
         addTank();
 
-        gamePanel = new JPanel(null);
+//        gamePanel = new JPanel(null);
         panel = new MyPanel();
         panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
         panel.setSize(AREA_WIDTH, AREA_HEIGHT);
-        gamePanel.add(panel);
-        add(gamePanel);
+//        gamePanel.add(panel);
+        add(panel);
         setSize(AREA_WIDTH, AREA_HEIGHT);
         setResizable(true);
         setVisible(true);
@@ -77,7 +76,6 @@ public class TankWar extends JFrame {
         });
         addKeyListener(new TankListener(myTank));
 //        addKeyListener(new PlaneListener(myPlane));
-
         new Thread(new WarRepaint()).start();
     }
 
@@ -111,30 +109,21 @@ public class TankWar extends JFrame {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            //添加战场背景
             g.drawImage(background.getImage(), 0, 0 ,null);
-
-            //添加围墙
             for(int i = 0; i < walls.size(); i++){
                 walls.get(i).draw(g);
             }
-            //添加金属墙
             for(int i = 0; i < golds.size(); i++){
                 golds.get(i).draw(g);
             }
-            //添加铁墙
             for(int i = 0; i < irons.size(); i++){
                 irons.get(i).draw(g);
             }
-
-            //绘制我方坦克出生地
             selfBorn.draw(g);
             myTank.drawTank(g);
-            //绘制敌方出生地
             for(int i = 0; i < enemyBorns.size(); i++){
                 enemyBorns.get(i).draw(g);
             }
-            //绘制所有坦克
             for (int i = 0; i < allTanks.size(); i++){
                 allTanks.get(i).drawTank(g);
             }
