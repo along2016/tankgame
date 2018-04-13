@@ -8,7 +8,7 @@ import util.Direction;
 import java.util.List;
 
 /**
- * 机甲控制类
+ * 坦克控制类
  */
 public class TankController {
 
