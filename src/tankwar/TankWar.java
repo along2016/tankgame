@@ -25,11 +25,9 @@ public class TankWar extends JFrame {
     private int style;                                                  //坦克型号
     private Tank myTank;                                                //我方坦克
     private Tank enemyTank;                                             //敌方坦克
+    private TankController tankController;
     private Random r = new Random();
     private List<Tank> allTanks = new ArrayList<>();
-
-//    private Battleplane myPlane = new Battleplane(100, 100, 1, Direction.D, null);
-
     private List<Wall> walls = new ArrayList<>();                       //普通墙
     private List<Gold> golds = new ArrayList<>();                       //金墙
     private List<Iron> irons = new ArrayList<>();                       //铁墙
@@ -53,8 +51,7 @@ public class TankWar extends JFrame {
         initMap(new File(map));
 
         //加入我方坦克
-        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null,
-                allTanks, walls, golds, irons,true, style);
+        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null,true, style);
         allTanks.add(myTank);
         addTank();
 
@@ -75,7 +72,6 @@ public class TankWar extends JFrame {
             }
         });
         addKeyListener(new TankListener(myTank));
-//        addKeyListener(new PlaneListener(myPlane));
         new Thread(new WarRepaint()).start();
     }
 
@@ -98,10 +94,11 @@ public class TankWar extends JFrame {
 
     //将战斗单位依次加入战场
     public void initBattlefield(){
-//        myPlane.autoMove();
-        myTank.move();
+        tankController = new TankController(myTank, allTanks, walls, golds, irons);
+        tankController.move();
         for(int i = 1; i < allTanks.size(); i++){
             allTanks.get(i).autoMove();
+            aI(allTanks.get(i));
         }
     }
 
@@ -178,13 +175,23 @@ public class TankWar extends JFrame {
             EnemyBorn randomEnemyBorn = enemyBorns.get(temp);
             Direction directions[] = Direction.values();
             enemyTank = new Tank(randomEnemyBorn.getX(), randomEnemyBorn.getY(),
-                    directions[r.nextInt(directions.length)], null,
-                    allTanks, walls, golds, irons, false, r.nextInt(3) + 1);
+                    directions[r.nextInt(directions.length)], null, false, r.nextInt(3) + 1);
+
             allTanks.add(enemyTank);
             maxTank--;
             if(maxTank <= 0){
                 return;
             }
+        }
+    }
+
+    /**
+     * 使敌方坦克自动移动
+     * （人工智能）
+     */
+    private void aI(Tank tank){
+        if(r.nextInt(40) == 0){
+            tank.fire();
         }
     }
 }

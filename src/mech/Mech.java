@@ -8,7 +8,6 @@ import util.Direction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Random;
 
 /**
  * 机甲类
@@ -258,5 +257,45 @@ public abstract class Mech {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isB_L() {
+        return b_L;
+    }
+
+    public void setB_L(boolean b_L) {
+        this.b_L = b_L;
+    }
+
+    public boolean isB_U() {
+        return b_U;
+    }
+
+    public void setB_U(boolean b_U) {
+        this.b_U = b_U;
+    }
+
+    public boolean isB_R() {
+        return b_R;
+    }
+
+    public void setB_R(boolean b_R) {
+        this.b_R = b_R;
+    }
+
+    public boolean isB_D() {
+        return b_D;
+    }
+
+    public void setB_D(boolean b_D) {
+        this.b_D = b_D;
     }
 }
