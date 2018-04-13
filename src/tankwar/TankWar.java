@@ -1,6 +1,7 @@
 package tankwar;
 
 import barrier.*;
+import tankwar.controller.TankController;
 import util.Direction;
 
 import javax.swing.*;

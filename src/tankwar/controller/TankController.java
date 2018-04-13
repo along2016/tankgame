@@ -1,8 +1,10 @@
-package tankwar;
+package tankwar.controller;
 
 import barrier.Gold;
 import barrier.Iron;
 import barrier.Wall;
+import tankwar.Tank;
+import tankwar.TankWar;
 import util.Direction;
 
 import java.util.List;
