@@ -11,8 +11,6 @@ import java.util.Random;
 public class Tank extends Mech{
 
     public static final int SIZE = 50;                 //坦克图片大小
-    private int hp = 50;                                //坦克的单位血量
-    private int hpMax = 50;                             //坦克的最大血量
     private boolean self;                              //是否是我方坦克
     private int style;                                  //坦克型号
     private TankLevel level = TankLevel.PRIMARY;       //坦克等级
@@ -42,6 +40,8 @@ public class Tank extends Mech{
                 switch (level){
                     case PRIMARY:
                         setPower(10);
+                        setSpeed(3);
+
                         break;
                     case MIDDLE:
                         setPower(12);

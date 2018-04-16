@@ -13,18 +13,16 @@ import java.awt.event.KeyEvent;
  * 机甲类
  */
 public abstract class Mech {
-    //速度
-    private int speed = 5;
-    //移动方向
-    private Direction dir;
-    //位置坐标
-    private int x ,y;
-    //子弹
-    private Missile missile;
-    //子弹大小
-    private int power;
-    //机甲方向键的按键情况
-    protected boolean b_L, b_U, b_R, b_D;
+    private int speed = 5;          //速度
+    private Direction dir;          //移动方向
+    private int x ,y;               //位置坐标
+    private Missile missile;        //子弹
+    private int power;              //子弹大小
+    private int hp;                 //生命值
+    private int hpMax;              //最大生命值
+    private long fireTime;          //开火时间
+
+    protected boolean b_L, b_U, b_R, b_D;           //机甲方向键的按键情况
 
     public Mech(int x, int y, int speed, Direction dir, Missile missile) {
         this.speed = speed;
@@ -297,5 +295,29 @@ public abstract class Mech {
 
     public void setB_D(boolean b_D) {
         this.b_D = b_D;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public void setHpMax(int hpMax) {
+        this.hpMax = hpMax;
+    }
+
+    public long getFireTime() {
+        return fireTime;
+    }
+
+    public void setFireTime(long fireTime) {
+        this.fireTime = fireTime;
     }
 }
