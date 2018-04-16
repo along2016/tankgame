@@ -7,12 +7,10 @@ import java.awt.*;
  * 围墙类
  */
 public class Barrier {
-    //围墙大小
-    public static final int SIZE = 50;
-    //围墙坐标
-    private int x, y;
-    //围墙皮肤
-    private ImageIcon face;
+    public static final int SIZE = 50;              //围墙大小
+    private int x, y;                               //围墙坐标
+    private ImageIcon face;                         //围墙皮肤
+    private int hp;                                 //生命值
 
     public Barrier(int x, int y){
         this.x = x;
@@ -47,5 +45,13 @@ public class Barrier {
 
     public void setFace(Image face) {
         this.face.setImage(face);
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
     }
 }
