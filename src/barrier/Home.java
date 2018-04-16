@@ -1,6 +1,4 @@
-package mech;
-
-import barrier.Barrier;
+package barrier;
 
 import javax.swing.*;
 import java.awt.*;
