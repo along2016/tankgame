@@ -33,6 +33,7 @@ public class TankWar extends JFrame {
     private List<Gold> golds = new ArrayList<>();                       //金墙
     private List<Iron> irons = new ArrayList<>();                       //铁墙
     private SelfBorn selfBorn;                                          //我方出生地
+    private Home home;
     private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();       //敌方出生地
 
     private JPanel gamePanel;
@@ -117,6 +118,7 @@ public class TankWar extends JFrame {
             for(int i = 0; i < irons.size(); i++){
                 irons.get(i).draw(g);
             }
+            home.draw(g);
             selfBorn.draw(g);
             myTank.drawTank(g);
             for(int i = 0; i < enemyBorns.size(); i++){
@@ -125,7 +127,6 @@ public class TankWar extends JFrame {
             for (int i = 0; i < allTanks.size(); i++){
                 allTanks.get(i).drawTank(g);
             }
-//            myPlane.drawPlane(g);
             if(myTank.getMissile() != null){
                 myTank.getMissile().draw(g);
             }
@@ -155,7 +156,7 @@ public class TankWar extends JFrame {
                             enemyBorns.add(new EnemyBorn(j * 50, i * 50));
                             break;
                         case 6:
-//                            home = new Home(j * 50, i * 50);
+                            home = new Home(j * 50, i * 50);
                             break;
                     }
                 }
