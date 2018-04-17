@@ -99,8 +99,10 @@ public class TankWar extends JFrame {
         tankController = new TankController(myTank, allTanks, walls, golds, irons);
         tankController.move();
         for(int i = 1; i < allTanks.size(); i++){
-            allTanks.get(i).autoMove();
-            aI(allTanks.get(i));
+            Tank enemyTank = allTanks.get(i);
+            tankController = new TankController(enemyTank, allTanks, walls, golds, irons);
+            tankController.autoMove();
+            aI(enemyTank);
         }
     }
 

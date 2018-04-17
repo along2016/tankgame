@@ -41,13 +41,23 @@ public class Tank extends Mech{
                     case PRIMARY:
                         setPower(10);
                         setSpeed(3);
-
+                        setHp(80);
+                        setHpMax(80);
+                        setFireTime(30l);
                         break;
                     case MIDDLE:
                         setPower(12);
+                        setSpeed(4);
+                        setHp(100);
+                        setHpMax(100);
+                        setFireTime(25l);
                         break;
                     case SENIOR:
                         setPower(14);
+                        setSpeed(5);
+                        setHp(120);
+                        setHpMax(120);
+                        setFireTime(20l);
                         break;
                 }
                 break;
@@ -55,12 +65,24 @@ public class Tank extends Mech{
                 switch (level){
                     case PRIMARY:
                         setPower(12);
+                        setSpeed(4);
+                        setHp(50);
+                        setHpMax(50);
+                        setFireTime(30l);
                         break;
                     case MIDDLE:
                         setPower(16);
+                        setSpeed(5);
+                        setHp(60);
+                        setHpMax(60);
+                        setFireTime(25l);
                         break;
                     case SENIOR:
                         setPower(20);
+                        setSpeed(6);
+                        setHp(70);
+                        setHpMax(70);
+                        setFireTime(20l);
                         break;
                 }
                 break;
@@ -68,12 +90,24 @@ public class Tank extends Mech{
                 switch (level){
                     case PRIMARY:
                         setPower(2);
+                        setSpeed(6);
+                        setHp(40);
+                        setHpMax(40);
+                        setFireTime(15l);
                         break;
                     case MIDDLE:
                         setPower(3);
+                        setSpeed(8);
+                        setHp(50);
+                        setHpMax(50);
+                        setFireTime(10l);
                         break;
                     case SENIOR:
                         setPower(4);
+                        setSpeed(10);
+                        setHp(60);
+                        setHpMax(60);
+                        setFireTime(5l);
                         break;
                 }
                 break;
@@ -89,6 +123,8 @@ public class Tank extends Mech{
             tank_U = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_up_" + iLevel + ".png"));
             tank_R = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_right_" + iLevel + ".png"));
             tank_D = new ImageIcon(Tank.class.getResource("/img/TANK" + style + "_enemy_down_" + iLevel + ".png"));
+            setHp(getHp()/2);
+            setHpMax(getHpMax()/2);
         }
 
     }
