@@ -1,6 +1,7 @@
 package tankwar;
 
 import barrier.*;
+import tankwar.controller.MissileController;
 import tankwar.controller.TankController;
 import util.Direction;
 
@@ -27,14 +28,17 @@ public class TankWar extends JFrame {
     private Tank myTank;                                                //我方坦克
     private Tank enemyTank;                                             //敌方坦克
     private TankController tankController;
-    private Random r = new Random();
+    private MissileController missileController;
+    private List<Missile> missiles = new ArrayList<>();
     private List<Tank> allTanks = new ArrayList<>();
+    private List<Boom> booms = new ArrayList<>();
     private List<Wall> walls = new ArrayList<>();                       //普通墙
     private List<Gold> golds = new ArrayList<>();                       //金墙
     private List<Iron> irons = new ArrayList<>();                       //铁墙
     private SelfBorn selfBorn;                                          //我方出生地
     private Home home;
     private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();       //敌方出生地
+    private Random r = new Random();
 
     private JPanel gamePanel;
     private MyPanel panel;
@@ -114,18 +118,17 @@ public class TankWar extends JFrame {
             for(int i = 0; i < walls.size(); i++){
                 walls.get(i).draw(g);
             }
-            for(int i = 0; i < golds.size(); i++){
-                golds.get(i).draw(g);
-            }
             for(int i = 0; i < irons.size(); i++){
                 irons.get(i).draw(g);
             }
-            home.draw(g);
-            selfBorn.draw(g);
-            myTank.drawTank(g);
+            for(int i = 0; i < golds.size(); i++){
+                golds.get(i).draw(g);
+            }
             for(int i = 0; i < enemyBorns.size(); i++){
                 enemyBorns.get(i).draw(g);
             }
+            home.draw(g);
+            selfBorn.draw(g);
             for (int i = 0; i < allTanks.size(); i++){
                 allTanks.get(i).drawTank(g);
             }
