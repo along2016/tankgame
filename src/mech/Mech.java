@@ -3,7 +3,6 @@ package mech;
 import tankwar.Missile;
 import tankwar.Tank;
 import tankwar.TankWar;
-import tankwar.controller.MissileController;
 import util.Direction;
 
 import javax.swing.*;
@@ -22,6 +21,7 @@ public abstract class Mech {
     private int hp;                 //生命值
     private int hpMax;              //最大生命值
     private long fireTime;          //开火时间
+    private long noFire;            //停火时间
 
     protected boolean b_L, b_U, b_R, b_D;           //机甲方向键的按键情况
 
@@ -94,6 +94,14 @@ public abstract class Mech {
     }
 
     public void fire(){
+        //控制炮弹发射频率
+        if(noFire < fireTime){
+            return;
+        }
+        noFire = 0l;
+//        if(){
+//
+//        }
         int missileX = x + 25 - power/2;
         int missileY = y + 25 - power/2;
         missile = new Missile(missileX, missileY, this);
@@ -320,5 +328,13 @@ public abstract class Mech {
 
     public void setFireTime(long fireTime) {
         this.fireTime = fireTime;
+    }
+
+    public long getNoFire() {
+        return noFire;
+    }
+
+    public void setNoFire(long noFire) {
+        this.noFire = noFire;
     }
 }
