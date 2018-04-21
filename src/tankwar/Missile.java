@@ -15,8 +15,8 @@ public class Missile implements Runnable{
     private boolean live = true;
 
     public Missile(int x, int y, Mech mech) {
-        this.x = x;
-        this.y = y;
+        this.x = x + 25 - power/2;
+        this.y = y + 25 - power/2;
         this.mech = mech;
         this.power = mech.getPower();
         this.dir = mech.getDir();

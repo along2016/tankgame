@@ -16,21 +16,17 @@ public abstract class Mech {
     private int speed = 5;          //速度
     private Direction dir;          //移动方向
     private int x ,y;               //位置坐标
-    private Missile missile;        //子弹
     private int power;              //子弹大小
     private int hp;                 //生命值
     private int hpMax;              //最大生命值
-    private long fireTime;          //开火时间
-    private long noFire;            //停火时间
 
     protected boolean b_L, b_U, b_R, b_D;           //机甲方向键的按键情况
 
-    public Mech(int x, int y, int speed, Direction dir, Missile missile) {
+    public Mech(int x, int y, int speed, Direction dir) {
         this.speed = speed;
         this.dir = dir;
         this.x = x;
         this.y = y;
-        this.missile = missile;
     }
 
     /**
@@ -91,22 +87,6 @@ public abstract class Mech {
             //向右移动
             x += speed;
         }
-    }
-
-    public void fire(){
-        //控制炮弹发射频率
-        if(noFire < fireTime){
-            return;
-        }
-        noFire = 0l;
-//        if(){
-//
-//        }
-        int missileX = x + 25 - power/2;
-        int missileY = y + 25 - power/2;
-        missile = new Missile(missileX, missileY, this);
-        setMissile(missile);
-        new Thread(missile).start();
     }
 
     /**
@@ -234,14 +214,6 @@ public abstract class Mech {
         this.dir = dir;
     }
 
-    public Missile getMissile() {
-        return missile;
-    }
-
-    public void setMissile(Missile missile) {
-        this.missile = missile;
-    }
-
     public int getPower() {
         return power;
     }
@@ -322,19 +294,4 @@ public abstract class Mech {
         this.hpMax = hpMax;
     }
 
-    public long getFireTime() {
-        return fireTime;
-    }
-
-    public void setFireTime(long fireTime) {
-        this.fireTime = fireTime;
-    }
-
-    public long getNoFire() {
-        return noFire;
-    }
-
-    public void setNoFire(long noFire) {
-        this.noFire = noFire;
-    }
 }

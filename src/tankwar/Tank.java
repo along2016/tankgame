@@ -1,6 +1,7 @@
 package tankwar;
 
 import mech.Mech;
+import tankwar.controller.MissileController;
 import util.Direction;
 import util.TankLevel;
 
@@ -22,8 +23,8 @@ public class Tank extends Mech{
     private ImageIcon tank_L;
     private ImageIcon tank_R;
 
-    public Tank(int x, int y, Direction dir, Missile missile, boolean self, int style) {
-        super(x, y, speed, dir, missile);
+    public Tank(int x, int y, boolean self, int style) {
+        super(x, y, speed, Direction.R);
         this.self = self;
         this.style = style;
         if(!self){
@@ -135,4 +136,5 @@ public class Tank extends Mech{
     public void drawTank(Graphics g){
         draw(tank_L, tank_U, tank_R, tank_D, g);
     }
+
 }

@@ -14,19 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TankWar extends JFrame {
+public class TankWar{
     public static void main(String[] args) {
         new TankWar("map/ermeng.map", 5, 1);
     }
 
+    static boolean TIMEOUT = false;
+    private JFrame f;
+    private JPanel gamePanel;
+    private MyPanel p;
+    private Tank myTank;
     public static final int AREA_WIDTH = 810;
     public static final int AREA_HEIGHT = 830;
-    private ImageIcon background;                                       //战场背景
-    private final String map;                                           //战场地图
-    private int maxTank;                                                //敌方最大坦克数
     private int style;                                                  //坦克型号
-    private Tank myTank;                                                //我方坦克
-    private Tank enemyTank;                                             //敌方坦克
     private TankController tankController;
     private MissileController missileController;
     private List<Missile> missiles = new ArrayList<>();
@@ -35,49 +35,52 @@ public class TankWar extends JFrame {
     private List<Wall> walls = new ArrayList<>();                       //普通墙
     private List<Gold> golds = new ArrayList<>();                       //金墙
     private List<Iron> irons = new ArrayList<>();                       //铁墙
+    private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();       //敌方出生地
     private SelfBorn selfBorn;                                          //我方出生地
     private Home home;
-    private ArrayList<EnemyBorn> enemyBorns = new ArrayList<EnemyBorn>();       //敌方出生地
-    private Random r = new Random();
+    private Tank enemyTank;                                             //敌方坦克
+    private Random r;
+    private ImageIcon background;                                       //战场背景
+    private final String map;                                           //战场地图
+    private int tankMax;                                                //敌方最大坦克数
 
-    private JPanel gamePanel;
-    private MyPanel panel;
 
-    public TankWar(String map, int maxTank, int style){
+    public TankWar(String map, int tankMax, int style){
         this.map = map;
-        this.maxTank = maxTank;
+        this.tankMax = tankMax;
         this.style = style;
         init();
     }
 
     //初始化战场
     public void init(){
-        setTitle("坦克大战");
-        background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
+        f = new JFrame("坦克大战");
+        gamePanel = new JPanel(null);
+        p = new MyPanel();
+        r = new Random();
         initMap(new File(map));
 
         //加入我方坦克
-        myTank = new Tank(selfBorn.getX(), selfBorn.getY(), Direction.U, null,true, style);
+        myTank = new Tank(selfBorn.getX(), selfBorn.getY(),true, style);
         allTanks.add(myTank);
         addTank();
+        background = new ImageIcon(TankWar.class.getResource("/pic/whiteback.jpg"));
 
-        gamePanel = new JPanel(null);
-        panel = new MyPanel();
-        panel.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
-        panel.setSize(AREA_WIDTH, AREA_HEIGHT);
-        gamePanel.add(panel);
-        add(gamePanel);
-        setSize(AREA_WIDTH, AREA_HEIGHT);
-        setResizable(false);
-        setVisible(true);
+        p.setBorder(BorderFactory.createEtchedBorder(Color.BLACK, Color.WHITE));
+        p.setSize(AREA_WIDTH, AREA_HEIGHT);
+        gamePanel.add(p);
+        f.add(gamePanel);
+        f.setSize(AREA_WIDTH, AREA_HEIGHT);
+        f.setResizable(true);
+        f.setVisible(true);
 
-        addWindowListener(new WindowAdapter() {
+        f.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
         });
-        addKeyListener(new TankListener(myTank));
+        f.addKeyListener(new TankListener(myTank));
         new Thread(new WarRepaint()).start();
     }
 
@@ -86,7 +89,7 @@ public class TankWar extends JFrame {
         public void run() {
             while (true){
                 //每30ms重画一次
-                panel.repaint();
+                p.repaint();
                 initBattlefield();
                 try {
                     Thread.sleep(30);
@@ -100,13 +103,13 @@ public class TankWar extends JFrame {
 
     //将战斗单位依次加入战场
     public void initBattlefield(){
-        tankController = new TankController(myTank, allTanks, walls, golds, irons);
+        tankController = new TankController(myTank, allTanks, walls, golds, irons, booms, home);
         tankController.move();
         for(int i = 1; i < allTanks.size(); i++){
             Tank enemyTank = allTanks.get(i);
-            tankController = new TankController(enemyTank, allTanks, walls, golds, irons);
+            tankController = new TankController(enemyTank, allTanks, walls, golds, irons, booms, home);
             tankController.autoMove();
-            aI(enemyTank);
+            aI(tankController);
         }
     }
 
@@ -131,9 +134,6 @@ public class TankWar extends JFrame {
             selfBorn.draw(g);
             for (int i = 0; i < allTanks.size(); i++){
                 allTanks.get(i).drawTank(g);
-            }
-            if(myTank.getMissile() != null){
-                myTank.getMissile().draw(g);
             }
         }
     }
@@ -173,20 +173,18 @@ public class TankWar extends JFrame {
 
     //向战场中增加坦克
     public void addTank(){
-        if(maxTank <= 0){
+        if(tankMax <= 0){
             return;
         }
         //从敌方坦克出生地持续产生新的敌方坦克，以补充被消灭的坦克
         for(int i = allTanks.size(); i < enemyBorns.size() + 1; i++){
             int temp = r.nextInt(enemyBorns.size());
             EnemyBorn randomEnemyBorn = enemyBorns.get(temp);
-            Direction directions[] = Direction.values();
-            enemyTank = new Tank(randomEnemyBorn.getX(), randomEnemyBorn.getY(),
-                    directions[r.nextInt(directions.length)], null, false, r.nextInt(3) + 1);
+            enemyTank = new Tank(randomEnemyBorn.getX(), randomEnemyBorn.getY(), false, r.nextInt(3) + 1);
 
             allTanks.add(enemyTank);
-            maxTank--;
-            if(maxTank <= 0){
+            tankMax--;
+            if(tankMax <= 0){
                 return;
             }
         }
@@ -196,9 +194,9 @@ public class TankWar extends JFrame {
      * 使敌方坦克自动移动
      * （人工智能）
      */
-    private void aI(Tank tank){
+    private void aI(TankController controller){
         if(r.nextInt(40) == 0){
-            tank.fire();
+            controller.fire();
         }
     }
 }

@@ -1,8 +1,11 @@
 package tankwar.controller;
 
 import barrier.Gold;
+import barrier.Home;
 import barrier.Iron;
 import barrier.Wall;
+import tankwar.Boom;
+import tankwar.Missile;
 import tankwar.Tank;
 import tankwar.TankWar;
 import util.Direction;
@@ -19,13 +22,20 @@ public class TankController {
     private List<Wall> walls;
     private List<Gold> golds;
     private List<Iron> irons;
+    private List<Boom> booms;
+    private Home home;
+    private long fireTime;          //开火时间
+    private long noFire;            //停火时间
 
-    public TankController(Tank tank, List<Tank> allTanks, List<Wall> walls, List<Gold> golds, List<Iron> irons) {
+    public TankController(Tank tank, List<Tank> allTanks, List<Wall> walls,
+                          List<Gold> golds, List<Iron> irons, List<Boom> booms, Home home) {
         this.tank = tank;
         this.allTanks = allTanks;
         this.walls = walls;
         this.golds = golds;
         this.irons = irons;
+        this.booms = booms;
+        this.home = home;
     }
 
     public void move(){
@@ -99,4 +109,31 @@ public class TankController {
         return true;
     }
 
+    public void fire(){
+        //控制炮弹发射频率
+        if(noFire < fireTime){
+            return;
+        }
+        noFire = 0l;
+        Missile missile = new Missile(tank.getX(), tank.getY(), tank);
+        MissileController controller = new MissileController(missile, allTanks, walls, irons, golds, home, booms);
+        controller.missileRun();
+        new Thread(missile).start();
+    }
+
+    public long getFireTime() {
+        return fireTime;
+    }
+
+    public void setFireTime(long fireTime) {
+        this.fireTime = fireTime;
+    }
+
+    public long getNoFire() {
+        return noFire;
+    }
+
+    public void setNoFire(long noFire) {
+        this.noFire = noFire;
+    }
 }

@@ -1,9 +1,6 @@
 package tankwar.controller;
 
-import barrier.Barrier;
-import barrier.Gold;
-import barrier.Iron;
-import barrier.Wall;
+import barrier.*;
 import tankwar.Boom;
 import tankwar.Missile;
 import tankwar.Tank;
@@ -20,15 +17,17 @@ public class MissileController {
     private List<Wall> walls;
     private List<Iron> irons;
     private List<Gold> golds;
+    private Home home;
 
     public MissileController(Missile missile, List<Tank> tanks, List<Wall> walls,
-                             List<Iron> irons, List<Gold> golds, List<Boom> booms) {
+                             List<Iron> irons, List<Gold> golds, Home home, List<Boom> booms) {
         this.missile = missile;
         this.tanks = tanks;
         this.walls = walls;
         this.golds = golds;
         this.irons = irons;
         this.booms = booms;
+        this.home = home;
     }
 
     public void missileRun(){
